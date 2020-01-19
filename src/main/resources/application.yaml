@@ -1,0 +1,8 @@
+spring:
+  activemq:
+    broker-url: tcp://${ACTIVEMQ_HOST:localhost}:${ACTIVEMQ_PORT:61616}
+queue:
+  club: ${CLUB_QUEUE:club_queue}
+  indonesia_club: ${INDOENISA_CLUB_QUEUE:indonesia_club_queue}
+  spain_club: ${SPAIN_CLUB_QUEUE:spain_club_queue}
+  other_club: ${OTHER_CLUB_QUEUE:other_club_queue}

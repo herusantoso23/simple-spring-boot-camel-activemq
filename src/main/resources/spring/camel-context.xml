@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="camel_context" xmlns="http://camel.apache.org/schema/spring">
+
+        <route id="routeFileToQueue">
+            <from uri="file:data?noop=true"/>
+            <log id="log_club_queue" message="Send to club queue"/>
+            <to uri="jms:queue:club_queue"/>
+        </route>
+
+        <route id="routeQueueToSpesificCountry">
+            <from uri="jms:queue:club_queue"/>
+            <choice>
+                <when>
+                    <xpath>/club/country = 'Indonesia'</xpath>
+                    <log id="log_indonesia_club_queue" message="Send to indonesia club queue"/>
+                    <to id="indonesiaClubQueue" uri="jms:queue:indonesia_club_queue"/>
+                </when>
+                <when>
+                    <xpath>/club/country = 'Spain'</xpath>
+                    <log id="log_spain_club_queue" message="Send to spain club queue"/>
+                    <to id="spainClubQueue" uri="jms:queue:spain_club_queue"/>
+                </when>
+                <otherwise>
+                    <log id="log_other_club_queue" message="Send to other club queue"/>
+                    <to id="otherQueue" uri="jms:queue:other_club_queue"/>
+                </otherwise>
+            </choice>
+        </route>
+
+    </camelContext>
+</beans>
