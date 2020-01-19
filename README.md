@@ -7,7 +7,7 @@
 
 ### How to run
 1. Running ActiveMQ
-    - If you dont have ActiveMQ 5, please download ActiveMQ Server in ```https://activemq.apache.org/components/classic/download/```
+    - If you haven't ActiveMQ 5, please download ActiveMQ Server in ```https://activemq.apache.org/components/classic/download/```
     - Running ActiveMQ with this command ```./bin/activemq start``` 
 2. Running Application
     - Running application with this command ```mvn spring-boot:run```
